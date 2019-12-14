@@ -1,0 +1,118 @@
+<table id="listainfo">
+<div  >
+  <br> 
+  <table id="customers2">
+    <thead>
+      <tr>
+        <th>Fecha y hora: </th>
+        <th> {{cuesfecha}}</th>
+      </tr>
+    </thead>
+        <tbody>        
+            <tr >
+                   <td>
+                      Auditoria:
+                  </td>
+                  <td >
+                      {{cuesaudi}}
+                    </td>
+              </tr>
+
+              <tr >
+                  <td>
+                     Empresa:
+                 </td>
+                 <td >
+                     {{cuesnomempresa}}
+                   </td>
+             </tr>
+
+             <tr >
+                <td>
+                  Area:
+               </td>
+               <td >
+                   {{cuesnomarea}}
+                 </td>
+           </tr>
+
+           <tr >
+              <td>
+                Auditor:
+             </td>
+             <td >
+                 {{cuesnomauditor}}
+               </td>
+         </tr>
+           
+        </tbody>
+      </table>
+           <br>
+
+  <table id="customers">
+    <thead>
+      <tr>
+        <th scope="col">Folio</th>
+        <th scope="col">Pregunta</th>
+        <th scope="col">Conformidad</th>
+      </tr>
+    </thead>
+    <tbody>        
+        <tr *ngFor="let preg of preguntas">
+               <td>
+                  {{preg.id}} 
+              </td>
+        <td> 
+       {{preg.preguntatxt | uppercase}}
+    </td>
+      <td>
+        {{preg.respuesta}}
+    </td>   
+      </tr>
+      <tr *ngIf="cuesresultado != '' " >
+        <td> </td>
+        <td>
+          Resultado final:
+        </td>
+        <td>
+          {{cuesresultado}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</table>
+<br>
+
+
+
+
+<div *ngFor="let up of usuarioprincipal">
+    <div *ngIf="up.tipo !=  'Empresa' "> 
+        <div *ngIf="cuesresultado == '' ">
+ <form class="border border-light p-5" #form="ngForm" novalidate> 
+    <div class="form-group" >
+        <label class="text-info">Esta auditoria fue:</label> <br>
+            <select class="form-control-sm" id="resultado" name="resultado"
+            [(ngModel)]="cuestionario.resultado" required>
+              <option value="Aprobada">Aprobada</option>
+              <option value="Reprobada">Reprobada</option>
+            </select>
+     </div>
+     <div class="form-group">
+     <button  [disabled]="!form.form.valid"  (click)="this.resultadocuestionario()"
+     class="btn btn btn-outline-info btn-sm">Calificar</button>
+     </div>
+</form>
+
+</div>
+</div>
+</div>
+
+
+
+
+<div *ngIf="cuesresultado != '' ">
+<button  (click)="this.generar()"
+class="btn btn btn-outline-danger btn-lg">Generar pdf</button>
+</div>

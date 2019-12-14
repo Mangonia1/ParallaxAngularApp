@@ -1,0 +1,53 @@
+<h1>Lista de auditorias</h1>
+
+<div *ngFor="let up of usuarioprincipal">
+    <div *ngIf="up.id !=  0"> 
+        
+
+<table  id="customers">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre del tipo cuestionario</th>
+
+      <th *ngIf="up.tipo ==  'Administrador' " scope="col">Eliminar</th>
+      <th *ngIf="up.tipo ==  'Administrador' " scope="col">Editar</th>
+      <th *ngIf="up.tipo ==  'Administrador' " scope="col">Agregar pregunta</th>
+    </tr>
+  </thead>
+  <tbody>
+      
+      <tr *ngFor="let quiss of cuestionario">
+             <td>
+                {{quiss.id}}
+            </td>
+
+      <td> 
+     {{quiss.nombretipocuestionario | uppercase}}
+      </td>
+  
+      <td *ngIf="up.tipo ==  'Administrador' ">
+              <button (click)='this.eliminarquis(quiss.id)' type="button" class="btn btn-outline-danger btn-sm">
+                  Eliminar
+              </button>
+        </td>
+
+        <td  *ngIf="up.tipo ==  'Administrador' ">
+                <button (click)='this.editarquis(quiss.id)' type="button" class="btn btn-outline-success btn-sm">
+                    Editar
+                </button>
+          </td>
+
+          <td  *ngIf="up.tipo ==  'Administrador' ">
+            <button (click)='this.agregarquis(quiss.id)' type="button" class="btn btn-outline-info btn-sm">
+                Agregar preguntas
+            </button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+
+
+      </div>
+      </div>
