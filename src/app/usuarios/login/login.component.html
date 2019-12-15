@@ -1,4 +1,4 @@
-
+<!--    
 <body>
   <div id="login">
       <h3 class="text-center text-white pt-5">Login form</h3>
@@ -32,7 +32,7 @@
 
 
 </body>
-
+-->
 
 <br>
 <!-- Trigger the modal with a button -->
@@ -69,3 +69,41 @@
     </div>
   </div>
 </div>
+
+<section id="login" class="mb-5 mt-5" >
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-4 mx-auto">
+        <div class="card shadow">
+          <div class="card-body text-center">
+            <form #formLogin="ngForm" >
+              <h1 class="h3 mb-3 font-weight-normal" *ngIf="!isError">Inicio sesion</h1>
+              <div class="alert alert-danger" role="alert" *ngIf="isError">
+                Algo falta!
+              </div>
+              <div class="form-group">
+                <input type="email" #emailInput="ngModel" id="email" name="email" class="form-control" placeholder="Correo" [(ngModel)]="email"  required>
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="emailInput.touched && !emailInput.valid">
+                <div *ngIf="emailInput.errors.required">El email es requerido</div>
+                <div *ngIf="emailInput.errors.minlength">El email debe ser de al menos 4 caracteres.</div>
+              </div>
+              <div class="form-group">
+                <input type="password" #passwordInput="ngModel" name="password" class="form-control" placeholder="Contraseña" [(ngModel)]="password"
+                  required minlength="4">
+              </div>
+              <div (keydown.enter)="iniciarSesion()" class="alert alert-danger" role="alert" *ngIf="passwordInput.touched && !passwordInput.valid">
+                <div *ngIf="passwordInput.errors.required">La contraseña es obligatoria</div>
+                <div *ngIf="passwordInput.errors.minlength">La contraseña debe contener al menos 4 caracteres.</div>
+              </div>
+              <button type="submit" class="btn btn-sm btn-black btn-block uppercase" (click)="inicioSesion()">Entrar</button>
+              <div class="form-group">
+                <a routerLink="/" href="" class="">Eres nuevo? Registrate aqui!</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
