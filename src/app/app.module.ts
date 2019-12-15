@@ -4,6 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsuariosModule } from './usuarios/usuarios.module';
 import { CuestionariosModule } from './cuestionarios/cuestionarios.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -13,7 +15,8 @@ import { CuestionariosModule } from './cuestionarios/cuestionarios.module';
     BrowserModule,
     AppRoutingModule,
     UsuariosModule,
-    CuestionariosModule
+    CuestionariosModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [],
   bootstrap: [AppComponent]
