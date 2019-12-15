@@ -27,18 +27,5 @@ export class AppComponent  implements OnInit {
   }
 
 
-  cerrarSesion(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('usuario');
-    localStorage.removeItem('miid');
-    localStorage.removeItem('tipo');
-    localStorage.removeItem('username');
-    //  localStorage.removeItem('channel');
-    alert('Sesion cerrada');
-    this.navegar.navigate(['']);
-    window.location.reload();
-  }
-
-
   title = 'auditoriapp';
 }
