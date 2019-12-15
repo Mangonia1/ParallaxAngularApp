@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
 
     this.usuarios.Logininfo(this.email).subscribe(data => {
        this.usuario = data;
-        console.log('id '+this.usuario.id);
+        console.log('id '+this.usuario[0].id);
+        this.Empezar(this.usuario[0].id,this.usuario[0].username);
     },error => {
       console.log(JSON.stringify(error));
       console.log('Usuario o contraseña invalidos');
