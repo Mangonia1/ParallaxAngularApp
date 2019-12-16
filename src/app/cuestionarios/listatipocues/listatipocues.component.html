@@ -1,4 +1,5 @@
-<div class="card text-center shadow margin-top-5">
+
+<div class="card text-center shadow margin-top-5 margin-bot-5">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
@@ -17,8 +18,7 @@
         </div>
         <div class="d-block d-lg-none blank-space-sm"></div>
         <div class="col-12 col-lg-2">
-          <button class="btn-success-alt btn-block shadow" data-toggle="modal" data-target="#addUser">
-            <i class="fa fa-search"></i>+
+          <button class="btn-success-alt btn-block shadow" data-toggle="modal" data-target="#addUser"> +
           </button>
         </div>
       </div>
@@ -50,19 +50,19 @@
       </td>
   
       <td *ngIf="up.tipo ==  'Administrador' ">
-              <button (click)='this.eliminarquis(quiss.id)' type="button" class="btn btn-outline-danger btn-sm">
+              <button (click)='this.eliminarquis(quiss.id)' type="button" class="btn-danger-alt">
                   Eliminar
               </button>
         </td>
 
         <td  *ngIf="up.tipo ==  'Administrador' ">
-                <button (click)='this.editarquis(quiss.id)' type="button" class="btn btn-outline-success btn-sm">
+                <button (click)='this.editarquis(quiss.id)' type="button" class="btn-primary-alt">
                     Editar
                 </button>
           </td>
 
           <td  *ngIf="up.tipo ==  'Administrador' ">
-            <button (click)='this.agregarquis(quiss.id)' type="button" class="btn btn-outline-info btn-sm">
+            <button (click)='this.agregarquis(quiss.id)' type="button" class="btn-success-alt">
                 Agregar preguntas
             </button>
       </td>
@@ -75,5 +75,36 @@
       </div>
       </div>
   </div>
+</div>
+
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUserLabel">Agregar usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulario de registro -->
+        <form form class="p-5" [formGroup]="myForm"  novalidate>
+
+          <div class="form-group">
+            <label  class="">Nombre del Tipo de Auditoria</label><br>
+              <input type="text" id="nombretipocuestionario" name="nombretipocuestionario" class="form-control" 
+              [(ngModel)]="cuestionario1.nombretipocuestionario" placeholder="Nombre del Cuestionario"
+                formControlName="nombrecuestionario" >
+          </div>
+
+          
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-danger-alt" data-dismiss="modal">Cancelar</button>
+        <button  [disabled]="myForm.invalid" (click)="this.agregarcuestionario()"
+        type="button" class="btn-success-alt-sm">Agregar</button>
+        </div>
+      </div>
+    </div>
 </div>
 

@@ -6,6 +6,7 @@ import { UsuariosService } from '../../usuarios/usuarios.service';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from '../../usuarios/usuarios.model';
 import { Router } from '@angular/router';
+import { FormBuilder,FormGroup,Validators,ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-listatipocues',
@@ -15,14 +16,19 @@ import { Router } from '@angular/router';
 export class ListatipocuesComponent implements OnInit {
 
   cuestionario:TipoCuestionario[];
-  
+  cuestionario1:TipoCuestionario;
   usuarioprincipal;
   nombre:string;
+  idcreador;
+  myForm:FormGroup;
+  
 
   constructor(
+    private cuestionariosservice: CuestionariosService,
     private cuestionarioservice: CuestionariosService,
     private usuarioservice:UsuariosService,
-     private router:Router
+     private router:Router,
+    public fb:FormBuilder
   ) { }
 
   ngOnInit() {
@@ -36,6 +42,13 @@ export class ListatipocuesComponent implements OnInit {
     this.usuarioservice.Logininfo(localStorage.getItem('usuario')).subscribe(data2 =>
       this.usuarioprincipal=data2
      );
+     this.myForm=this.fb.group({
+      nombrecuestionario:['',Validators.required]
+    });
+    
+    this.idcreador = localStorage.getItem('miid');
+    console.log('yo soy '+this.idcreador );
+    this.cuestionario1 = this.cuestionariosservice.nuevotipocuestionario();
 
   }
 
@@ -58,5 +71,16 @@ this.cuestionarioservice.destruirtipocuestionario(id).subscribe(
   {
     this.router.navigate(['/agregarcuestionariomodel',id]); 
   }
+
+  agregarcuestionario():void{
+    
+    this.cuestionarioservice.agregartipocuestionario(this.cuestionario1).subscribe(
+      (data)=>{
+        console.log(data);
+      },(error:any)=>console.log(error)
+    );
+     this.cuestionario1 = this.cuestionarioservice.nuevotipocuestionario();
+     window.location.reload();
+     }
 
 }

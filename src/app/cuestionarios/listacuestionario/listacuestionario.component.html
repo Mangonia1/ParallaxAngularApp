@@ -80,10 +80,10 @@
                       </td>
               
                       <td  *ngIf="usuarioprincipal[0].tipo ==  'Administrador' ">
-                              
-                              <button (click)='this.editarquis(quiss.id)' type="button" class="btn btn-outline-info btn-sm">
+                              <!-- (click)='this.editarquis(quiss.id)' -->
+                              <button  data-toggle="modal" data-target="#update" (click)='this.pasarInfo(quiss,quiss.id)'   type="button" class="btn btn-outline-info btn-sm">
                                   Editar
-                              </button>
+                              </button> 
                             
                         </td>
               
@@ -198,4 +198,63 @@
               type="button" class="btn-success-alt-sm">Agregar</button>
               </div>
             </div> 
+        </div>
+</div>
+
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateLabel">Encabezado de auditoria</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         
+        </button>
+      </div>
+      <div class="modal-body">
         
+        <form form class="border border-light p-5" [formGroup]="myForm2"  novalidate>
+          <div class="form-group " >
+             <label >Nombre de la auditoria</label><br>
+             <input type="text" id="nombrecuestionario" name="nombrecuestionario" class="form-control" 
+             [(ngModel)]="cuestionario3.nombrecuestionario" placeholder="Nombre"
+             formControlName="nombrecuestionario">
+          </div>
+          <div class="form-group ">
+            <label >Nombre de la empresa</label><br>
+            <select class="form-control" id="empresa" name="empresa"
+             [(ngModel)]="cuestionario3.empresa" formControlName="empresa" >
+              <option *ngFor="let emp of empresa" [value]="emp.nombre">
+                {{emp.nombre}}
+              </option>
+            </select>
+          </div> 
+          <div class="form-group " >
+            <label >Nombre del departamento</label> <br> 
+            <input type="text" id="departamento" name="departamento" class="form-control" 
+            [(ngModel)]="cuestionario3.departamento" placeholder="Departamento"
+            formControlName="departamento">
+          </div>
+           <div class="form-group ">
+             <input type="text" id="idcreador" name="idcreador" class="form-control" 
+             [(ngModel)]="idcreador" formControlName="idcreador" type="hidden">
+           </div> 
+              <div class="form-group ">
+                  <label >Auditor</label> <br>
+                  <select class="form-control" id="usernameauditor" name="usernameauditor"
+                   [(ngModel)]="cuestionario3.usernameauditor" formControlName="usernameauditor" >
+                    <option *ngFor="let usuario of usuarios" [value]="usuario.username">
+                      {{usuario.nombre}} {{usuario.apellidop}} {{usuario.apellidom}} ( {{usuario.tipo}} )
+                    </option>
+                  </select>
+                </div>           
+                
+     </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-danger-alt" data-dismiss="modal">Cancelar</button>
+        <button   [disabled]="myForm2.invalid"  (click)="this.editarcuestionario()"
+        type="button" class="btn-success-alt-sm">Agregar</button>
+        </div>
+      </div> 
+  </div>
+</div>

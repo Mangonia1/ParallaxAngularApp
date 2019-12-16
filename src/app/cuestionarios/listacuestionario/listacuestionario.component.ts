@@ -28,9 +28,15 @@ export class ListacuestionarioComponent implements OnInit {
   ) { }
   empresa:Empresa[];
   cuestionario2:Cuestionario;
+  cuestionario3:Cuestionario;
   usuarios:Usuario[];
   idcreador;
   myForm:FormGroup;
+  myForm2:FormGroup;
+  nombrecuestionario;
+  departamento;
+  usernameauditor;
+  id:number ; 
   ngOnInit() {
 
     
@@ -63,11 +69,19 @@ export class ListacuestionarioComponent implements OnInit {
        idcreador:['',Validators.required],
        usernameauditor:['',Validators.required]
      });
+     this.myForm2=this.fb.group({
+      nombrecuestionario:['',Validators.required],
+      empresa:['',Validators.required],
+      departamento:['',Validators.required],
+      idcreador:['',Validators.required],
+      usernameauditor:['',Validators.required]
+    });
      
      this.idcreador = localStorage.getItem('miid');
      console.log('yo soy '+this.idcreador );
  
      this.cuestionario2 = this.cuestionariosservice.nuevocuestionario(this.idcreador);
+     this.cuestionario3 = this.cuestionariosservice.nuevocuestionarioedit();
      this.usuarioservice.getusuariosinempresa().subscribe(data =>this.usuarios=data);
  
  
@@ -79,10 +93,11 @@ export class ListacuestionarioComponent implements OnInit {
     this.cuestionariosservice.agregarCuestionario(this.cuestionario).subscribe(
       (data)=>{
         console.log(data);
+        location.reload();
       },(error:any)=>console.log(error)
     );
      this.cuestionario2 = this.cuestionariosservice.nuevocuestionario(this.idcreador);
-     location.reload();
+  
      }
 
   
@@ -121,5 +136,32 @@ this.cuestionarioservice.destruirCuestionario(id).subscribe(
     this.router.navigate(['/listacalificar',id]); 
   }
 
+
+  pasarInfo(request,idreq)
+  {
+    this.id = idreq;
+    this.cuestionario3.nombrecuestionario = request.nombrecuestionario;
+    this.cuestionario3.empresa= request.empresa;
+    this.cuestionario3.departamento= request.departamento;
+    this.cuestionario3.idcreador= request.creador;
+    this.cuestionario3.usernameauditor= request.usernameauditor;
+    this.cuestionariosservice.getCuestionariouno(this.id).
+    subscribe(
+      (usuario)=>this.cuestionario3 = usuario,
+  (err:any) => console.log(err));
+  }
+
+
+  editarcuestionario():void{
+    this.cuestionariosservice.editarCuestionario(this.cuestionario3,this.id).subscribe(
+      (data: void)=>{
+        
+      },(error:any)=>console.log(error)
+    );
+    this.cuestionario3 = this.cuestionariosservice.nuevocuestionarioedit();
+ 
+    
+    
+      }
   
 }

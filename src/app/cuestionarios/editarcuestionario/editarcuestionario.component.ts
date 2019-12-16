@@ -62,8 +62,6 @@ export class EditarcuestionarioComponent implements OnInit {
   editarcuestionario():void{
     this.cuestionariosservice.editarCuestionario(this.cuestionario,this.id).subscribe(
       (data: void)=>{
-        console.log(data);
-        this.router.navigate(['/listacuestionario']);
       },(error:any)=>console.log(error)
     );
     this.cuestionario = this.cuestionariosservice.nuevocuestionarioedit();
