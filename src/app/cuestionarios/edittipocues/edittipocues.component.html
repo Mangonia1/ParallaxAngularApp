@@ -12,7 +12,7 @@
 
 <form form class="border border-light p-5" [formGroup]="myForm"  novalidate>
             <div class="form-group " >
-                <label class="text-info">Nombre del cuestionario</label> <br>
+                <label class="">Nombre del cuestionario</label> <br>
                 <input type="text" id="nombretipocuestionario" name="nombretipocuestionario" class="form-control" 
                 [(ngModel)]="cuestionario.nombretipocuestionario" placeholder="Nombre"
                 formControlName="nombretipocuestionario">
@@ -21,7 +21,7 @@
              
              <div class="form-group">
              <button  [disabled]="myForm.invalid"  (click)="this.editarcuestionario()"
-             class="btn btn btn-outline-info btn-lg">Agregar</button>
+             class="btn-info-alt">Agregar</button>
              </div>
 
 
@@ -31,8 +31,8 @@
 
 
 </div>
-<div class="alert alert-info" role="alert" *ngIf="myForm.invalid">
-  Procure llenar <a href="#" class="alert-link">TODOS</a> los campos
+<div class="alert" role="alert" *ngIf="myForm.invalid">
+  Algo Falta!
 </div>
 </div>
 </div>
