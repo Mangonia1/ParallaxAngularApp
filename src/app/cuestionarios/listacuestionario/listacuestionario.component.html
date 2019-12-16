@@ -52,23 +52,23 @@
                           </td>
               
                     <td> 
-                   {{quiss.nombrecuestionario | uppercase}}
+                   {{quiss.nombrecuestionario}}
                     </td>
               
                   <td>
-                    {{quiss.creador | uppercase}}
+                    {{quiss.creador}}
                 </td>
               
                    <td>
-                    {{quiss.usernameauditor | uppercase}}
+                    {{quiss.usernameauditor}}
                 </td>
               
                 <td>
-                {{quiss.empresa | uppercase}}
+                {{quiss.empresa}}
               </td>
               
               <td>
-              {{quiss.departamento | uppercase}}
+              {{quiss.departamento}}
               </td>
                 
                     <td *ngIf="usuarioprincipal[0].tipo ==  'Administrador' ">
@@ -92,7 +92,7 @@
                                     <div *ngIf="quiss.terminareditarcuestionario ==  '1'">
                                       <!-- (click)='this.agregarpregunta(quiss.id, quiss.nombrecuestionario)'  -->
                                 <button data-toggle="modal" data-target="#AgregarPreguntas" (click)="GetID(quiss.id)"
-                                type="button" class=" btn-success-alt ">
+                                type="button" class=" btn-success-alt-sm ">
                                     Agregar  
                                 </button>
                               </div>

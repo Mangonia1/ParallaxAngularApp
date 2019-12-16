@@ -19,7 +19,7 @@ export class ListacuestionarioComponent implements OnInit {
   usuarioprincipal;
   nombre:string;
   idelcuestionario:number =0;
-  cuestionariomodel: import("c:/Users/Ricardo Antonio/Documents/Auditorias/ParallaxAngularApp/src/app/cuestionarios/cuestionariomods.model").Cuestionariomod[];
+  cuestionariomodel: import("../cuestionariomods.model").Cuestionariomod[];
   variablesen: string;
   
   constructor(
