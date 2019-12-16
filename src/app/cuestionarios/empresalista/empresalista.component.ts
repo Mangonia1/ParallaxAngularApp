@@ -65,6 +65,7 @@ this.cuestionarioservice.destruirEmpresa(id).subscribe(
       },(error:any)=>console.log(error)
     );
     this.empresa = this.cuestionarioservice.nuevoempresa();
+    window.location.reload();
   }
 
 }
