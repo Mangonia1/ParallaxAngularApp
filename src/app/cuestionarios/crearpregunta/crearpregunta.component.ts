@@ -107,8 +107,8 @@ this.cuestionariosservice.gettipocuestionario().subscribe(data =>
 
 
   verpreguntas():void{
-    console.log('se va a desplegar del id '+this.idelcuestionario);
-    this.cuestionariosservice.getcuestionariomodel(this.idelcuestionario).subscribe(data =>
+    console.log('se va a desplegar del id '+this.id);
+    this.cuestionariosservice.getcuestionariomodel(this.id).subscribe(data =>
       {this.cuestionariomodel=data
         this.variablesen = '12';
       });
@@ -116,6 +116,7 @@ this.cuestionariosservice.gettipocuestionario().subscribe(data =>
 
      terminarformu():void
      {
+       this.verpreguntas();
    var arrayinput = new Array();
        var inputsValue = document.getElementsByClassName(' datoInput'),
        nameValues = [].map.call(inputsValue, function( dataInput){

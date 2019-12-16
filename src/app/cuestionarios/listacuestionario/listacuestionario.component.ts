@@ -18,7 +18,10 @@ export class ListacuestionarioComponent implements OnInit {
   
   usuarioprincipal;
   nombre:string;
-
+  idelcuestionario:number =0;
+  cuestionariomodel: import("c:/Users/Ricardo Antonio/Documents/Auditorias/ParallaxAngularApp/src/app/cuestionarios/cuestionariomods.model").Cuestionariomod[];
+  variablesen: string;
+  
   constructor(
     private cuestionarioservice: CuestionariosService,
     private usuarioservice:UsuariosService,
@@ -33,10 +36,12 @@ export class ListacuestionarioComponent implements OnInit {
   idcreador;
   myForm:FormGroup;
   myForm2:FormGroup;
+  myForm3:FormGroup;
   nombrecuestionario;
   departamento;
   usernameauditor;
   id:number ; 
+  tipocuestionarios;
   ngOnInit() {
 
     
@@ -78,19 +83,23 @@ export class ListacuestionarioComponent implements OnInit {
     });
      
      this.idcreador = localStorage.getItem('miid');
-     console.log('yo soy '+this.idcreador );
+     
  
      this.cuestionario2 = this.cuestionariosservice.nuevocuestionario(this.idcreador);
      this.cuestionario3 = this.cuestionariosservice.nuevocuestionarioedit();
      this.usuarioservice.getusuariosinempresa().subscribe(data =>this.usuarios=data);
- 
+     this.cuestionariosservice.nuevotipocuestionario();
+     this.cuestionariosservice.gettipocuestionario().subscribe(data =>
+     {
+       this.tipocuestionarios=data   
+     });
  
     
   }
 
   agregarcuestionario():void{
     
-    this.cuestionariosservice.agregarCuestionario(this.cuestionario).subscribe(
+    this.cuestionariosservice.agregarCuestionario(this.cuestionario2).subscribe(
       (data)=>{
         console.log(data);
         location.reload();
@@ -136,7 +145,10 @@ this.cuestionarioservice.destruirCuestionario(id).subscribe(
     this.router.navigate(['/listacalificar',id]); 
   }
 
-
+  GetID(idreq)
+  {
+    this.id = idreq;
+  }
   pasarInfo(request,idreq)
   {
     this.id = idreq;
@@ -155,7 +167,7 @@ this.cuestionarioservice.destruirCuestionario(id).subscribe(
   editarcuestionario():void{
     this.cuestionariosservice.editarCuestionario(this.cuestionario3,this.id).subscribe(
       (data: void)=>{
-        
+        location.reload();
       },(error:any)=>console.log(error)
     );
     this.cuestionario3 = this.cuestionariosservice.nuevocuestionarioedit();
@@ -163,5 +175,51 @@ this.cuestionarioservice.destruirCuestionario(id).subscribe(
     
     
       }
+      verpreguntas():void{
+        console.log('se va a desplegar del id '+this.idelcuestionario);
+        this.cuestionariosservice.getcuestionariomodel(this.idelcuestionario).subscribe(data =>
+          {this.cuestionariomodel=data
+            this.variablesen = '12';
+          });
+         }
+
+      terminarformu():void
+      {
+         var arrayinput = new Array();
+        var inputsValue = document.getElementsByClassName(' datoInput'),
+        nameValues = [].map.call(inputsValue, function( dataInput){
+        arrayinput.push(dataInput.value);
+        });
+    
+        var arrayinput2 = new Array();
+        var inputsValue2 = document.getElementsByClassName(' datoInput2'),
+        nameValues2 = [].map.call(inputsValue2, function( dataInput2){
+    arrayinput2.push(dataInput2.value);
+        });
+        
+    for(var j=0; j< arrayinput.length;j++ )
+    {
+    
+     this.cuestionariosservice.agregarPreguntaconstilo(this.id,arrayinput[j],arrayinput2[j]).subscribe(
+       (data)=>{
+         console.log(data);
+         
+         console.log(' respuesta '+arrayinput[j]+' tiporespuesta '+arrayinput2[j]);
+       },(error:any)=>console.log(error));
+       
+    }
+          
+    this.asyncMethod();
+      }
+      async asyncMethod() {
+
+        this.cuestionariosservice.terminareditarcues(this.id).subscribe(
+          ()=> {console.log(`Cuestionario with Id = ${this.id} deleted`)
+          location.reload();
+        },
+              (err) => console.log(err));
+  
+           }
+
   
 }
