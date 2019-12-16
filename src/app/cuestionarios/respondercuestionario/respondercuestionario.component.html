@@ -28,7 +28,7 @@
           <form  #form="ngForm" form class="border border-light p-5"  novalidate>
  
             <div *ngFor="let preg of preguntas">  
-                <label class="text-info">  {{preg.preguntatxt | uppercase}}</label><br>  
+                <label class="question">  {{preg.preguntatxt}}</label><br>  
                 <div class="form-group col-md-6" >
                     <input type="text" id="idrespuesta" name="idrespuesta[]" class="form-control  datoInput2" 
                     value="{{preg.id}}"  required placeholder="Respuesta" hidden>
@@ -65,14 +65,12 @@
                             <option value="Falso">Falso</option>
                           </select>
                         </div>
-        
                         </div>
-        
                </div>
          
                <div  *ngIf="preguntas !=  ''">
                   <button [disabled]="!form.form.valid" (click)="this.terminarformu()"
-                  class="btn-info-alt ">Responder</button>
+                  class="btn-success-alt-sm ">Responder</button>
                  </div>               
         
         </form>

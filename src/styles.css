@@ -2,6 +2,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=PT+Serif:400,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 body{
   background-color: #bfcfd5;
@@ -225,6 +226,11 @@ a{
   border-radius: 0;
 }
 
+.yellow{
+  background: #f1f211 !important;
+  background-color: #f1f211 !important;
+}
+
 .form-control{ font-family: 'Playfair', sans-serif !important; font-size: 10px; }
 
 .card{
@@ -263,4 +269,14 @@ input:active{
   font-size: 25px;
   font-weight: 700;
   padding: 5px;
+}
+
+.pregunta{
+  font-family: 'PT Serif', serif;
+  font-size: 20px;
+}
+
+.respuesta{
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
 }

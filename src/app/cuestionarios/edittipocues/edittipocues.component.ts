@@ -22,6 +22,8 @@ export class EdittipocuesComponent implements OnInit {
   id:number ; 
   myForm:FormGroup;
 
+  mostrar:boolean=true;
+
   constructor(
     private route:ActivatedRoute,
     private cuestionariosservice:CuestionariosService,

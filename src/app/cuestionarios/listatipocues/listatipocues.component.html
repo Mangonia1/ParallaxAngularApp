@@ -46,7 +46,7 @@
             </td>
 
       <td> 
-     {{quiss.nombretipocuestionario | uppercase}}
+     {{quiss.nombretipocuestionario}}
       </td>
   
       <td *ngIf="up.tipo ==  'Administrador' ">
@@ -62,7 +62,7 @@
           </td>
 
           <td  *ngIf="up.tipo ==  'Administrador' ">
-            <button (click)='this.agregarquis(quiss.id)' type="button" class="btn-success-alt">
+            <button (click)='this.agregarquis(quiss.id)' type="button" class="btn-success-alt-sm">
                 Agregar preguntas
             </button>
       </td>

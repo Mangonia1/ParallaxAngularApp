@@ -1,124 +1,84 @@
-<body>
-  <div class="card text-center shadow margin-top-5 margin-bot-5">
-    <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-          <a class="nav-link title active" href="#">Cuestionario</a>
-        </li>
-        
-      </ul>
-    </div>
-    <div class="card-body">
-      <div class="" *ngIf="cuestionariomodel !=  ''"> 
-  
-        <div id="login">
-           <div class="container">
-               <div id="login-row" class="justify-content-center align-items-center">
-                   <div id="login-column" class="col-12">
-                       <div id="login-box" class="col-12">
-       
-       <form form class="border border-light"  novalidate>
-        <div class="form-group ">
-           <div class="row" *ngFor="let preg of cuestionariomodel">  
-               <label class="question col-md-3 col-xs-12">  {{preg.preguntatxt | uppercase}}</label><br>  
-               <div class="col-md-3 col-xs-12" *ngIf="preg.tiporespuesta ==  '1'">  
-                   <div class="form-group " >
-                      <input type="text" id="respuesta" name="respuesta" class="form-control" 
-                       placeholder="Respuesta" >
-                   </div>
-                   </div>
-       
-                   <div class="col-md-3 col-xs-12" *ngIf="preg.tiporespuesta ==  '2'">
-       
-                       
-                               <div class="form-group  " >
-                                       <input type="number" id="respuesta" name="respuesta" class="form-control" 
-                                         required min="1" max="5">
-                                   </div>
-                                   
-           
-                   </div>
-       
-                 <div class="col-md-3 col-xs-12" *ngIf="preg.tiporespuesta ==  '3'">           
-       
-                       <div class="form-group ">
-                           <select class="form-control" id="respuesta" name="respuesta"
-                            >
-                             <option value="Verdadero">Verdadero</option>
-                             <option value="Falso">Falso</option>
-                           </select>
-                         </div>
-                       </div>
-       
-            <div class="row">
-              <div class="form-group col-md-3 col-xs-6">
-       
-                   <button (click)='this.editarpregunta(preg.id)' type="button" class="btn-info-alt">
-                       Editar pregunta
-                   </button>
-       
-         </div>
-         <div class="form-group col-md-3 col-xs-6" style="margin-right: 2px;">
-       
-           <button (click)='this.eliminarpregunta(preg.id)' type="button" class="btn-danger-alt">
-                 Eliminar
-             </button>
-         </div>
-            </div>
-           
-         <br>
-       
-       
+<div class="card text-center shadow margin-top-5 margin-bot-5">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link title active" href="#">Cuestionario</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <div class="" *ngIf="cuestionariomodel !=  ''">
+      <!-- Formulario de agregar las preguntas -->
+      <form form class=""  novalidate>
+        <div class="form-group">
+          <div class="row" *ngFor="let preg of cuestionariomodel">  
+            <label class="question col-md-4 col-12">  {{preg.preguntatxt}}</label><br>
+            <!-- Solo se muestra si es pregunta abierta -->
+            <div class="col-md-4 col-12" *ngIf="preg.tiporespuesta ==  '1'">  
+              <div class="form-group " >
+                <input type="text" id="respuesta" name="respuesta" class="form-control" 
+                  placeholder="Respuesta" >
               </div>
-        </div>
-        
-       </form>
-       
-       </div>
-       </div>
-       </div>
-       </div>
-       </div> 
-       
-       </div>
-      <div *ngFor="let up of usuarioprincipal">
-        <div class="container">
-            <form  #form="ngForm"  novalidate>
-               <!-- <div class="form-group col-md-6">
-                 <input type="text" id="idpreguntas" name="idpreguntas" class="form-control" 
-                 [(ngModel)]="pregunta.idpreguntas"  type="hidden">
-               </div> -->
-               <div class="row margin-bot-5">
-               <div class="form-group col-md-4" >
-                  <input type="text" id="preguntatxt" name="preguntatxt" class="form-control" 
-                  [(ngModel)]="cuestionario.preguntatxt"  required placeholder="Pregunta">
-               </div>
-               <div class="form-group col-md-4">
-                <select class="form-control" id="tiporespuesta" name="tiporespuesta"
-                 [(ngModel)]="cuestionario.tiporespuesta" required>
-                  <option value="1">Abierta</option>
-                  <option value="2">Calificar del 1-5</option>
-                  <option value="3">Verdadero/Falso</option>
+            </div>
+
+            <!-- Solo se muestra si es de rating -->
+            <div class="col-md-4 col-12" *ngIf="preg.tiporespuesta ==  '2'">
+              <div class="form-group  " >
+                <input type="number" id="respuesta" name="respuesta" class="form-control" 
+                  required min="1" max="5">
+              </div>
+            </div>
+
+            <!-- Solo se muestra si es verdadera/falsa -->
+            <div class="col-md-4 col-12" *ngIf="preg.tiporespuesta ==  '3'">
+              <div class="form-group ">
+                <select class="form-control" id="respuesta" name="respuesta">
+                  <option value="Verdadero">Verdadero</option>
+                  <option value="Falso">Falso</option>
                 </select>
               </div>
-
+            </div>
+        
+            <div class="col-md-4 col-12">
+              <div class="form-group">
+                <button (click)='this.editarpregunta(preg.id)' type="button" class="btn-primary-alt">
+                    Editar pregunta
+                </button>
+              </div>
+              <div class="form-group" style="margin-right: 2px;">
+                <button (click)='this.eliminarpregunta(preg.id)' type="button" class="btn-danger-alt">
+                  Eliminar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div *ngFor="let up of usuarioprincipal">
+      <div class="container">
+        <form  #form="ngForm"  novalidate>
+          <div class="row margin-bot-5">
+            <div class="form-group col-md-4" >
+                <input type="text" id="preguntatxt" name="preguntatxt" class="form-control" 
+                [(ngModel)]="cuestionario.preguntatxt"  required placeholder="Pregunta">
+              </div>
               <div class="form-group col-md-4">
-                    <button (click)="this.agregarpregunta()"
-                    class="btn-success-alt btn-block shadow" [disabled]="!form.form.valid">Agregar</button>
-                  </div>
-               </div>
-            
-               
-    
-            
-    
-            
-            </form>
+              <select class="form-control" id="tiporespuesta" name="tiporespuesta"
+                [(ngModel)]="cuestionario.tiporespuesta" required>
+                <option value="1">Abierta</option>
+                <option value="2">Rating 1-5</option>
+                <option value="3">Verdadero/Falso</option>
+              </select>
             </div>
 
-
-        </div>
+            <div class="form-group col-md-4">
+              <button (click)="this.agregarpregunta()"
+              class="btn-success-alt btn-block shadow" [disabled]="!form.form.valid">Agregar</button>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-  
-</body>
+</div>

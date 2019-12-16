@@ -7,7 +7,7 @@
               </li>                   
             </ul>
           </div>
-          <div  class="card-body">
+          <div  class="card-body" style="overflow-y: scroll;">
             <div class="blank-space-sm"></div>
             <div class="row">
               <div class="col-8 col-lg-8">
@@ -24,8 +24,7 @@
               </div>
             </div>
             <div class="blank-space-sm"></div>
-            <div *ngIf="usuarioprincipal[0].id !=  0">        
-
+            <div *ngIf="usuarioprincipal && usuarioprincipal[0].id !=  0">
               <table  id="customers">
                 <thead>
                   <tr>
@@ -81,7 +80,7 @@
               
                       <td  *ngIf="usuarioprincipal[0].tipo ==  'Administrador' ">
                               <!-- (click)='this.editarquis(quiss.id)' -->
-                              <button  data-toggle="modal" data-target="#update" (click)='this.pasarInfo(quiss,quiss.id)'   type="button" class=" btn-info-alt ">
+                              <button  data-toggle="modal" data-target="#update" (click)='this.pasarInfo(quiss,quiss.id)'   type="button" class=" btn-primary-alt ">
                                   Editar
                               </button> 
                             
@@ -97,7 +96,7 @@
                                 </button>
                               </div>
                               <div *ngIf="quiss.terminareditarcuestionario !=  '1'" class="badge badge-success text-wrap">
-                                  Agregado
+                                ✔ Listo
                                 </div>
                               
                           </td>
@@ -110,9 +109,9 @@
                                   </button>
                                   </div>
                                   <div *ngIf="quiss.terminareditarcuestionario !=  '2' || quiss.terminado !=  '1' "
-                                  class="badge badge-primary text-wrap">
-                                      ...
-                                      </div>
+                                  class="badge yellow white text-wrap">
+                                    SIN ASIGNAR
+                                  </div>
                                   
                             </td>
               
@@ -150,7 +149,7 @@
             </div>
             <div class="modal-body">
               
-              <form form class="border border-light p-5" [formGroup]="myForm"  novalidate>
+              <form form class="p-5" [formGroup]="myForm"  novalidate>
                 <div class="form-group " >
                    <label >Nombre de la auditoria</label><br>
                    <input type="text" id="nombrecuestionario" name="nombrecuestionario" class="form-control" 
@@ -208,7 +207,7 @@
       </div>
       <div class="modal-body">
         
-        <form form class="border border-light p-5" [formGroup]="myForm2"  novalidate>
+        <form form class="p-5" [formGroup]="myForm2"  novalidate>
           <div class="form-group " >
              <label >Nombre de la auditoria</label><br>
              <input type="text" id="nombrecuestionario" name="nombrecuestionario" class="form-control" 
@@ -296,7 +295,7 @@
                 <div id="login-row" class="row justify-content-center align-items-center">
                     <div id="login-column" class="col-md-12">
                         <div id="login-box" class="col-md-12">
-<form  form class="border border-light ">
+<form  form class="">
     <div *ngFor="let preg of cuestionariomodel">  
 
             <div  >
@@ -360,7 +359,7 @@
       <div class="modal-footer">
         <button type="button" class="btn-danger-alt" data-dismiss="modal">Cancelar</button>
         <button   (click)="this.terminarformu()"
-        class=" btn-success-alt " [disabled]="!form.form.valid">Agregar</button>
+        class=" btn-success-alt-sm " [disabled]="!form.form.valid">Agregar</button>
         </div>
       </div> 
   </div>

@@ -43,14 +43,15 @@ export class EmpresalistaComponent implements OnInit {
     this.empresa = this.cuestionarioservice.nuevoempresa();
   }
 
-  eliminarempresa(id)
-  {
-this.cuestionarioservice.destruirEmpresa(id).subscribe(
-  ()=> console.log(`Empresa with Id = ${id} deleted`),
-      (err) => console.log(err)
-);
-    
-    window.location.reload();
+  eliminarempresa(id){
+    if(confirm("¿Está seguro de querer eliminar a esta empresa?")){
+      this.cuestionarioservice.destruirEmpresa(id).subscribe(
+        ()=> console.log(`Empresa with Id = ${id} deleted`),
+            (err) => console.log(err)
+      );
+      
+      window.location.reload();
+    }
   }
 
   editarempres(id)

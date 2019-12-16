@@ -110,14 +110,14 @@ export class ListacuestionarioComponent implements OnInit {
      }
 
   
-  eliminarquis(id)
-  {
-this.cuestionarioservice.destruirCuestionario(id).subscribe(
-  ()=> console.log(`Cuestionario with Id = ${id} deleted`),
-      (err) => console.log(err)
-);
-    
-    window.location.reload();
+  eliminarquis(id){
+    if(confirm("¿Está seguro de querer eliminar a esta auditoría?")){
+      this.cuestionarioservice.destruirCuestionario(id).subscribe(
+        ()=> console.log(`Cuestionario with Id = ${id} deleted`),
+            (err) => console.log(err)
+      );  
+      window.location.reload();
+    }
   }
 
   editarquis(id)

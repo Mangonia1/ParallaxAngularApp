@@ -1,3 +1,52 @@
+<div class="blank-space"></div>
+<div class="card shadow ">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link title noselect active" >Resultados</a>
+      </li>                   
+    </ul>
+  </div>
+  <div  class="card-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-lg-6">
+          <span class="question">Fecha:</span> {{ cuesfecha }}
+        </div>
+        <div class="col-12 col-lg-6">
+          <div class="row d-flex justify-content-between align-items-center">
+            <span class="question">Empresa:</span> <span class="secondary-font title">{{ cuesnomempresa }}</span>
+          </div>
+          <div class="row d-flex justify-content-between align-items-center">
+            <span class="question">Área auditada:</span> <span class="secondary-font">{{ cuesnomarea }}</span>
+          </div>
+          <div class="row d-flex justify-content-between align-items-center">
+            <span class="question">Auditor:</span> <span class="secondary-font">{{ cuesnomauditor }}</span>
+          </div>
+        </div>
+        <div class="blank-space-sm"></div>
+        <div class="col-12">
+          <div class="row shadow" *ngFor="let preg of preguntas">
+            <div class="p-1 col-1 bg-dark white text-center">
+              <span class="question">{{ preg.id }}</span>
+            </div>
+            <div class="p-1 col-10">
+              <span class="pregunta">{{ preg.preguntatxt }}</span>
+              <br>
+              <span class="respuesta">- {{ preg.respuesta }}</span>
+            </div>
+          </div>
+        </div>
+        <div class="blank-space-sm"></div>
+        <div class="col-12 text-right">
+          ola
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="blank-space"></div>
+
 <table id="listainfo">
 <div  >
   <br> 

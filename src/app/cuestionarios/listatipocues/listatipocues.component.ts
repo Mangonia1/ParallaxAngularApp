@@ -52,14 +52,15 @@ export class ListatipocuesComponent implements OnInit {
 
   }
 
-  eliminarquis(id)
-  {
-this.cuestionarioservice.destruirtipocuestionario(id).subscribe(
-  ()=> console.log(`Cuestionario with Id = ${id} deleted`),
-      (err) => console.log(err)
-);
-    
-    window.location.reload();
+  eliminarquis(id){
+    if(confirm("¿Está seguro de querer eliminar este cuestionario?")){
+      this.cuestionarioservice.destruirtipocuestionario(id).subscribe(
+        ()=> console.log(`Cuestionario with Id = ${id} deleted`),
+            (err) => console.log(err)
+      );
+      
+      window.location.reload();
+    }
   }
 
   editarquis(id)
