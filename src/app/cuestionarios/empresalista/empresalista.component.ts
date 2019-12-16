@@ -5,6 +5,7 @@ import { UsuariosService } from '../../usuarios/usuarios.service';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from '../../usuarios/usuarios.model';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-empresalista',
@@ -13,7 +14,10 @@ import { Router } from '@angular/router';
 })
 export class EmpresalistaComponent implements OnInit {
 
-  empresa:Empresa[];
+  empresas:Empresa[];
+  mostrar:boolean = true;
+  empresa:Empresa;
+  myForm:FormGroup;
   
   usuarioprincipal;
   nombre:string;
@@ -21,19 +25,22 @@ export class EmpresalistaComponent implements OnInit {
   constructor(
     private cuestionarioservice: CuestionariosService,
     private usuarioservice:UsuariosService,
-     private router:Router
+    public fb:FormBuilder,
+    private router:Router
   ) { }
 
   ngOnInit() {
-
     this.cuestionarioservice.getEmpresa()
-    .subscribe(data =>this.empresa=data);
-
-
+    .subscribe(data =>this.empresas = data);
 
     this.usuarioservice.Logininfo(localStorage.getItem('usuario')).subscribe(data2 =>
       this.usuarioprincipal=data2
      );
+     this.myForm=this.fb.group({
+      nombre:['',Validators.required],
+      giro:['',Validators.required]
+    });
+    this.empresa = this.cuestionarioservice.nuevoempresa();
   }
 
   eliminarempresa(id)
@@ -49,6 +56,15 @@ this.cuestionarioservice.destruirEmpresa(id).subscribe(
   editarempres(id)
   {
     this.router.navigate(['/editarempresa',id]); 
+  }
+
+  agregarempresa():void{
+    this.cuestionarioservice.agregarEmpresa(this.empresa).subscribe(
+      (data)=>{
+        console.log(data);
+      },(error:any)=>console.log(error)
+    );
+    this.empresa = this.cuestionarioservice.nuevoempresa();
   }
 
 }
