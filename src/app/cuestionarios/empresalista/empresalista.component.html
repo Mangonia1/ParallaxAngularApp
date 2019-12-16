@@ -1,95 +1,111 @@
-<h1>Lista de empresa</h1>
-
-<div *ngFor="let up of usuarioprincipal">
-    <div *ngIf="up.id !=  0"> 
-        
-
-<table id="customers">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nombre de la empresa</th>
-      <th scope="col">Giro de la empresa</th>
-      <th scope="col">Eliminar</th>
-      <th scope="col">Editar</th>
-    </tr>
-  </thead>
-  <tbody>
-      
-      <tr *ngFor="let emp of empresa">
-             <td>
-
-                {{emp.id}}
-
-            
-            </td>
-
-      <td> 
-
-  
-     {{emp.nombre | uppercase}}
-
-  
-  </td>
-
-    <td>
-
-      
-      {{emp.giro | uppercase}}
-
-  
-  </td>
-
-  
-      <td>
-
-              <div *ngIf="up.tipo ==  'Administrador' || up.tipo ==  'Empresa' ">
-              <button (click)='this.eliminarempresa(emp.id)' type="button" class="btn btn-outline-danger btn-sm">
-                  Eliminar
-              </button>
-              </div>
-
-        </td>
-
-        <td>
-
-                <div *ngIf="up.tipo ==  'Administrador' || up.tipo ==  'Empresa' ">
-                <button (click)='this.editarempres(emp.id)' type="button" class="btn btn-outline-success btn-sm">
-                    Editar
-                </button>
-              </div>
-
-          </td>
-
-          
-    </tr>
-  </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div>
+  <div class="blank-space"></div>
+  <div class="card shadow ">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link title noselect" [ngClass]="{'active':mostrar}" (click)="mostrar = true">Empresas</a>
+        </li>         
+      </ul>
+    </div>
+    <div *ngIf="mostrar" class="card-body">
+      <div class="blank-space-sm"></div>
+      <div class="row">
+        <div class="col-8 col-lg-8">
+            <input class="form-control" type="search" placeholder="Buscar" aria-label="Escribe para buscar">
+        </div>
+        <div class="col-4 col-lg-2">
+          <button class="btn-black-alt btn-block shadow"><i class="fa fa-search"></i>buscar</button>
+        </div>
+        <div class="d-block d-lg-none blank-space-sm"></div>
+        <div class="col-12 col-lg-2">
+          <button class="btn-success-alt btn-block shadow" data-toggle="modal" data-target="#addUser">
+            <i class="fa fa-search"></i>+
+          </button>
+        </div>
       </div>
+      <div class="blank-space-sm"></div>
+      <div *ngFor="let up of usuarioprincipal">
+        <div *ngIf="up.id !=  0">
+          <table id="customers">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre de la empresa</th>
+                <th scope="col">Giro de la empresa</th>
+                <th scope="col" class="d-none  d-md-table-cell">Opciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let emp of empresas">
+                <td>
+                  {{emp.id}}
+                </td>
+                <td>
+                  {{emp.nombre}}
+                </td>
+                <td>
+                  {{emp.giro}}
+                </td>
+                <td class="d-none d-md-table-cell" class="d-flex justify-content-around">
+                  <div *ngIf="up.tipo ==  'Administrador' || up.tipo ==  'Empresa' ">
+                    <button (click)='this.editarempres(emp.id)' type="button" class="btn-primary-alt">
+                      Editar
+                    </button>
+                  </div>
+                  <div *ngIf="up.tipo ==  'Administrador' || up.tipo ==  'Empresa' ">
+                    <button (click)='this.eliminarempresa(emp.id)' type="button" class="btn-danger-alt">
+                      Eliminar
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de registro -->
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addUserLabel">Agregar usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Formulario de registro -->
+        <form form class="p-5" [formGroup]="myForm"  novalidate>
+
+          <div class="form-group " >
+            <label  class="">Nombre de la empresa</label><br>
+            <input type="text" id="nombre" name="nombre" class="form-control" 
+            [(ngModel)]="empresa.nombre" placeholder="Nombre"
+            formControlName="nombre">
+          </div>
+           
+          <div class="form-group" >
+            <label  class="">Giro de la empresa</label><br>
+            <input type="text" id="giro" name="giro" class="form-control" 
+            [(ngModel)]="empresa.giro" placeholder="giro"
+            formControlName="giro">
+          </div>
+           
+           <div class="form-group">
+           
+           </div>
+      </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-danger-alt" data-dismiss="modal">Cancelar</button>
+        <button  [disabled]="myForm.invalid"  (click)="this.agregarempresa()"
+          class="btn-success-alt-sm" data-dismiss="modal">Agregar</button>
+        </div>
+      </div>
+    </div>
+</div>
