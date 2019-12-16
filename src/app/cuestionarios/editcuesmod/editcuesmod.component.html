@@ -5,18 +5,18 @@
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
 
-<form form class="border border-light p-5" [formGroup]="myForm"  novalidate>
+<form form class="border border-light" [formGroup]="myForm"  novalidate>
     <div class="form-group" >
         <input type="text" id="idtipocuestionario" name="idtipocuestionario" class="form-control" 
         [(ngModel)]="pregunta.idtipocuestionario" hidden formControlName="idtipocuestionario" required>
      </div>
     <div class="form-group" >
-        <label class="text-info">Pregunta</label><br>
+        <label class="">Pregunta</label><br>
         <input type="text" id="preguntatxt" name="preguntatxt" class="form-control" 
         [(ngModel)]="pregunta.preguntatxt" formControlName="preguntatxt" required placeholder="Pregunta">
      </div>
      <div class="form-group">
-      <label class="text-info">Tipo de respuesta</label><br>
+      <label class="">Tipo de respuesta</label><br>
       <select class="form-control" id="tiporespuesta" name="tiporespuesta"
        [(ngModel)]="pregunta.tiporespuesta" formControlName="tiporespuesta" required>
         <option value="1">Abierta</option>
@@ -27,7 +27,7 @@
                
                <div class="form-group">
                <button [disabled]="myForm.invalid" (click)="this.editarpregunta()"
-               class="btn btn btn-outline-info btn-lg">Agregar</button>
+               class="btn-info-alt">Agregar</button>
                </div>
 </form>
 
