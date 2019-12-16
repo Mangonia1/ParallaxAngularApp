@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuariosService } from '../usuarios/usuarios.service';
 
 @Component({
   selector: 'app-menu',
@@ -6,10 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
+  usuarioprincipal;
 
-  constructor() { }
+  constructor(private usuarioservice:UsuariosService) { }
 
   ngOnInit() {
+    this.usuarioservice.Logininfo(localStorage.getItem('usuario')).subscribe(data2 =>
+      this.usuarioprincipal=data2
+     );
   }
 
 }
