@@ -5,7 +5,8 @@ import { UsuariosService } from '../../usuarios/usuarios.service';
 import { ActivatedRoute } from '@angular/router';
 import { Usuario } from '../../usuarios/usuarios.model';
 import { Router } from '@angular/router';
-
+import { Empresa } from '../empresa.model';
+import { FormBuilder,FormGroup,Validators,ReactiveFormsModule, FormControl } from '@angular/forms';
 @Component({
   selector: 'app-listacuestionario',
   templateUrl: './listacuestionario.component.html',
@@ -21,10 +22,18 @@ export class ListacuestionarioComponent implements OnInit {
   constructor(
     private cuestionarioservice: CuestionariosService,
     private usuarioservice:UsuariosService,
-     private router:Router
+     private router:Router,
+     private cuestionariosservice:CuestionariosService,     
+     public fb:FormBuilder
   ) { }
-
+  empresa:Empresa[];
+  cuestionario2:Cuestionario;
+  usuarios:Usuario[];
+  idcreador;
+  myForm:FormGroup;
   ngOnInit() {
+
+    
 
     if(localStorage.getItem('tipo') == 'Administrador')
     {
@@ -39,13 +48,42 @@ export class ListacuestionarioComponent implements OnInit {
     }
 
 
-    this.usuarioservice.Logininfo(localStorage.getItem('usuario')).subscribe(data2 =>
+    this.usuarioservice.Logininfo(localStorage.getItem('usuario')).subscribe(data2 =>{
       this.usuarioprincipal=data2
+    }
      );
-
-
-
+     
+     this.cuestionariosservice.getEmpresa()
+     .subscribe(data =>this.empresa=data);
+ 
+     this.myForm=this.fb.group({
+       nombrecuestionario:['',Validators.required],
+       empresa:['',Validators.required],
+       departamento:['',Validators.required],
+       idcreador:['',Validators.required],
+       usernameauditor:['',Validators.required]
+     });
+     
+     this.idcreador = localStorage.getItem('miid');
+     console.log('yo soy '+this.idcreador );
+ 
+     this.cuestionario2 = this.cuestionariosservice.nuevocuestionario(this.idcreador);
+     this.usuarioservice.getusuariosinempresa().subscribe(data =>this.usuarios=data);
+ 
+ 
+    
   }
+
+  agregarcuestionario():void{
+    
+    this.cuestionariosservice.agregarCuestionario(this.cuestionario).subscribe(
+      (data)=>{
+        console.log(data);
+      },(error:any)=>console.log(error)
+    );
+     this.cuestionario2 = this.cuestionariosservice.nuevocuestionario(this.idcreador);
+     location.reload();
+     }
 
   
   eliminarquis(id)
@@ -83,5 +121,5 @@ this.cuestionarioservice.destruirCuestionario(id).subscribe(
     this.router.navigate(['/listacalificar',id]); 
   }
 
-
+  
 }
