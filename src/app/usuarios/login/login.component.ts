@@ -60,8 +60,8 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('tipo',this.especial.tipo)
     localStorage.setItem('miid',id);
     localStorage.setItem('username',username);
-    window.location.replace("listacuestionario");
     
+    window.location.reload();
   }  
 
 }

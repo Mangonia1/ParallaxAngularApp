@@ -1,85 +1,24 @@
-<nav class="navbar navbar-expand-lg bg-light shadow">
-  <a class="navbar-brand white" [routerLink]="['/']" routerLinkActive="router-link-active"><h4>Parallax</h4></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <div *ngFor="let up of usuarioprincipal">
-      <div *ngIf="up.id !=  0"> 
-        <ul class="navbar-nav">
-          <li class="nav-item dropdown">
-            <div *ngFor="let up of usuarioprincipal">
-              <div *ngIf="up.id !=  0"> 
-                <div *ngIf="up.tipo ==  'Administrador'"> 
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Usuario
-                  </a> 
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="nav-link" [routerLink]="['formulariousuario']" routerLinkActive="router-link-active">Alta de usuario</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="nav-link" [routerLink]="['listausuario']" routerLinkActive="router-link-active">lista de usuarios</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <div *ngFor="let up of usuarioprincipal">
-              <div *ngIf="up.id !=  0"> 
-              <div *ngIf="up.tipo ==  'Administrador'"> 
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Empresa
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="nav-link" [routerLink]="['formularioempresa']" routerLinkActive="router-link-active">Alta de empresa</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="nav-link" [routerLink]="['listaempresa']" routerLinkActive="router-link-active">lista de empresas</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <div *ngFor="let up of usuarioprincipal">
-              <div *ngIf="up.id !=  0"> 
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Auditoria
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <div *ngIf="up.tipo ==  'Administrador' ">
-                    <a class="nav-link" [routerLink]="['formulariocuestionario']" routerLinkActive="router-link-active">Alta de auditoria</a>
-                    <div class="dropdown-divider"></div>
-                  </div>
-                  <a class="nav-link" [routerLink]="['listacuestionario']" routerLinkActive="router-link-active">Lista de auditorias</a>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          
-        </form>   
-      </div>
-    </div>
-  </div>
-</nav>
-
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow">
   <a class="navbar-brand" [routerLink]="['menu']"><img style="height: 50px; width: 50px;" src="assets/icons/icon-72x72.png" alt="Parallax"></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" *ngFor="let up of usuarioprincipal">
+    <ul class="navbar-nav mr-auto" *ngIf="up.id !=  0">
       <li class="nav-item active">
         <a class="nav-link" [routerLink]="['menu']" style="font-weight: 700;">Inicio <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" [routerLink]="['listausuario']" routerLinkActive="router-link-active">Usuarios</a>
+      <li class="nav-item dropdown" *ngIf="up.tipo ==  'Administrador'">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Usuarios
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" [routerLink]="['listausuario']" routerLinkActive="router-link-active">Internos</a>
+          <a class="dropdown-item" [routerLink]="['listausuariosolocliente']" routerLinkActive="router-link-active">Externos</a>
+        </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="up.tipo ==  'Administrador'">
         <a class="nav-link" [routerLink]="['listaempresa']" routerLinkActive="router-link-active">Empresas</a>
       </li>
       <li class="nav-item">
@@ -89,7 +28,7 @@
         <a class="nav-link" [routerLink]="['listatipocuestionario']" routerLinkActive="router-link-active">Cuestionario</a>
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
+    <form class="form-inline my-2 my-lg-0" *ngIf="up.id !=  0">
       <button (click)="cerrarSesion()" type="button" class="btn-danger-alt">
         Cerrar sesion
       </button>
