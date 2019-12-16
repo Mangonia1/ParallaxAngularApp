@@ -30,17 +30,17 @@
                 <thead>
                   <tr>
                     <th scope="col">ID</th>
-                    <th scope="col">Nombre del cuestionario</th>
-                    <th scope="col">Creador de auditoria</th>
+                    <th scope="col">Cuestionario</th>
+                    <th scope="col">Creador</th>
                     <th scope="col">Auditor</th>
                     <th scope="col">Empresa</th>
-                    <th scope="col">Departamento</th>
+                    <th scope="col">Area</th>
               
                     <th *ngIf="usuarioprincipal[0].tipo ==  'Administrador' " scope="col">Eliminar</th>
                     <th *ngIf="usuarioprincipal[0].tipo ==  'Administrador' " scope="col">Editar</th>
-                    <th  *ngIf="usuarioprincipal[0].tipo ==  'Administrador' " scope="col">Agregar pregunta</th>
+                    <th  *ngIf="usuarioprincipal[0].tipo ==  'Administrador' " scope="col">Agregar preguntas</th>
                     <th  *ngIf="usuarioprincipal[0].tipo ==  'Administrador'  || usuarioprincipal[0].tipo ==  'Auditor' " scope="col">Responder cuestionario</th>
-                    <th scope="col">Ver resultados</th>
+                    <th scope="col">Resultados</th>
                     
                   </tr>
                 </thead>
@@ -73,7 +73,7 @@
                 
                     <td *ngIf="usuarioprincipal[0].tipo ==  'Administrador' ">
                             
-                            <button (click)='this.eliminarquis(quiss.id)' type="button" class="btn btn-outline-danger btn-sm">
+                            <button (click)='this.eliminarquis(quiss.id)' type="button" class=" btn-danger-alt ">
                                 Eliminar
                             </button>
                             
@@ -81,7 +81,7 @@
               
                       <td  *ngIf="usuarioprincipal[0].tipo ==  'Administrador' ">
                               <!-- (click)='this.editarquis(quiss.id)' -->
-                              <button  data-toggle="modal" data-target="#update" (click)='this.pasarInfo(quiss,quiss.id)'   type="button" class="btn btn-outline-info btn-sm">
+                              <button  data-toggle="modal" data-target="#update" (click)='this.pasarInfo(quiss,quiss.id)'   type="button" class=" btn-info-alt ">
                                   Editar
                               </button> 
                             
@@ -90,16 +90,14 @@
                         <td  *ngIf="usuarioprincipal[0].tipo ==  'Administrador'">
                                 
                                     <div *ngIf="quiss.terminareditarcuestionario ==  '1'">
-                                <button (click)='this.agregarpregunta(quiss.id, quiss.nombrecuestionario)' 
-                                type="button" class="btn btn-outline-success btn-sm">
+                                      <!-- (click)='this.agregarpregunta(quiss.id, quiss.nombrecuestionario)'  -->
+                                <button data-toggle="modal" data-target="#AgregarPreguntas" (click)="GetID(quiss.id)"
+                                type="button" class=" btn-success-alt ">
                                     Agregar  
                                 </button>
                               </div>
-                              <div *ngIf="quiss.terminareditarcuestionario !=  '1'">
-                                  <button (click)='this.agregarpregunta(quiss.id, quiss.nombrecuestionario)'
-                                   type="button" class="btn btn-outline-success btn-sm" disabled>
-                                      Agregar
-                                  </button>
+                              <div *ngIf="quiss.terminareditarcuestionario !=  '1'" class="badge badge-success text-wrap">
+                                  Agregado
                                 </div>
                               
                           </td>
@@ -107,15 +105,13 @@
                           <td *ngIf="usuarioprincipal[0].tipo ==  'Administrador' || usuarioprincipal[0].tipo ==  'Auditor' ">
                                   
                                       <div *ngIf="quiss.terminareditarcuestionario ==  '2' && quiss.terminado ==  '1' ">
-                                  <button (click)='this.responderquiss(quiss.id, quiss.nombrecuestionario)' type="button" class="btn btn-outline-warning btn-sm">
+                                  <button (click)='this.responderquiss(quiss.id, quiss.nombrecuestionario)' type="button" class="btn-warning-alt">
                                       Responder
                                   </button>
                                   </div>
-                                  <div *ngIf="quiss.terminareditarcuestionario !=  '2' || quiss.terminado !=  '1' ">
-                                      <button (click)='this.responderquiss(quiss.id, quiss.nombrecuestionario)'
-                                       type="button" class="btn btn-outline-warning btn-sm" disabled>
-                                          Responder
-                                      </button>
+                                  <div *ngIf="quiss.terminareditarcuestionario !=  '2' || quiss.terminado !=  '1' "
+                                  class="badge badge-primary text-wrap">
+                                      ...
                                       </div>
                                   
                             </td>
@@ -123,7 +119,7 @@
                             <td>
                                     <div *ngIf=" quiss.terminado !=  '1' ">
                                         <button (click)='this.veresul(quiss.id, quiss.nombrecuestionario)'
-                                         type="button" class="btn btn-outline-info btn-sm" >
+                                         type="button" class=" btn-info-alt " >
                                            Ver
                                         </button>
                                         </div>
@@ -205,7 +201,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="updateLabel">Encabezado de auditoria</h5>
+        <h5 class="modal-title" id="updateLabel">Actualizar encabezado</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
          
         </button>
@@ -254,6 +250,122 @@
         <button type="button" class="btn-danger-alt" data-dismiss="modal">Cancelar</button>
         <button   [disabled]="myForm2.invalid"  (click)="this.editarcuestionario()"
         type="button" class="btn-success-alt-sm">Agregar</button>
+        </div>
+      </div> 
+  </div>
+</div>
+
+
+
+<div class="modal fade" id="AgregarPreguntas" tabindex="-1" role="dialog" aria-labelledby="AgregarPreg" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="AgregarPreg">Adjuntar cuestionario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         
+        </button>
+      </div>
+      <div class="modal-body">
+        
+        <form  #form="ngForm"  novalidate>           
+          <div class="row">
+          <div class="form-group col-md-6">
+              <div class="col">
+                  <label  class="text-info">Tipo cuestionario</label><br>
+                <select class="form-control" id="id" name="id"
+                 [(ngModel)]="idelcuestionario">
+                 <option  value="null">
+                  
+                </option>
+                 <option *ngFor="let cues of tipocuestionarios" [value]="cues.id">
+                    {{cues.nombretipocuestionario}}
+                  </option>
+                </select>
+              </div>              
+          </div>
+
+          <div class="form-group col-md-6">
+            <button (click)="this.verpreguntas()"
+            class="btn btn btn-outline-info btn-md" [disabled]="!form.form.valid">ver</button>
+          </div>
+      </div>            
+       </form>
+       
+        <div *ngIf="variablesen !=  ''">
+
+    <div id="login">
+            <div class="container">
+                <div id="login-row" class="row justify-content-center align-items-center">
+                    <div id="login-column" class="col-md-6">
+                        <div id="login-box" class="col-md-12">
+<form  form class="border border-light p-5">
+    <div *ngFor="let preg of cuestionariomodel">  
+
+            <div class="form-group col-md-6" >
+                    <label class="text-info">{{preg.preguntatxt | uppercase}}</label><br>
+                    <input type="text" id="preguntatxt" name="preguntatxt[]" class="form-control datoInput" 
+                    value="{{preg.preguntatxt}}"  hidden required placeholder="Pregunta">
+                 </div>
+
+                 <div class="form-group col-md-6" >
+                 <input type="text" id="tiporespuesta" name="tiporespuesta[]" class="form-control datoInput2" 
+                    value="{{preg.tiporespuesta}}" hidden required >
+                 </div>
+
+                 <div *ngIf="preg.tiporespuesta ==  '1'">  
+                        <div class="form-group " >
+                           <input type="text" id="respuesta1" name="respuesta1" class="form-control" 
+                            placeholder="Respuesta" >
+                        </div>
+                        </div>
+            
+                        <div *ngIf="preg.tiporespuesta ==  '2'">
+            
+                            
+                                    <div class="form-group " >
+                                            <input type="number" id="respuesta1" name="respuesta1" class="form-control" 
+                                              required min="1" max="5">
+                                        </div>
+                                        
+                
+                        </div>
+            
+                      <div *ngIf="preg.tiporespuesta ==  '3'">           
+            
+                            <div class="form-group ">
+                                <select class="form-control" id="respuesta1" name="respuesta1"
+                                 >
+                                  <option value="Verdadero">Verdadero</option>
+                                  <option value="Falso">Falso</option>
+                                </select>
+                              </div>
+                            </div>
+
+
+   
+    </div>            
+    <div class="form-group col-md-6">
+            <button (click)="this.terminarformu()"
+            class="btn btn btn-outline-info btn-md" [disabled]="!form.form.valid">aceptar</button>
+          </div>
+
+</form>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-danger-alt" data-dismiss="modal">Cancelar</button>
+        <button   (click)="this.terminarformu()"
+        class=" btn-success-alt " [disabled]="!form.form.valid">Agregar</button>
         </div>
       </div> 
   </div>
