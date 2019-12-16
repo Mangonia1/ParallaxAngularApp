@@ -1,7 +1,16 @@
+<div>
+  <div class="blank-space"></div>
+  <div class="card shadow ">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link title noselect" [ngClass]="{'active':mostrar}" (click)="mostrar = true">Lista de auditores/administradores</a>
+        </li>         
+      </ul>
+    </div>
+ 
 <body>
-
 <div  *ngIf="usuarios2 !=  ''">
-<h1>Lista de auditores/administradores</h1>
 <table id="customers">
   <thead>
     <tr>
@@ -47,12 +56,13 @@
         {{usuario.email | uppercase}}     
   </td>
   <td>
-              <button (click)='this.eliminarMono(usuario.userid)' type="button" class="btn btn-outline-danger btn-sm">
-               Eliminar
-              </button>     
+
+          
+              <button (click)='this.eliminarMono(usuario.userid)' type="button" class="btn-black-alt btn-block shadow">
+               Eliminar </button>     
           </td>
           <td>
-                <button (click)='this.editarMono(usuario.userid)' type="button" class="btn btn-outline-success btn-sm">
+                <button (click)='this.editarMono(usuario.userid)' type="button" class="btn-success-alt btn-block shadow" data-toggle="modal">
                   Editar
                 </button>
             </td>
