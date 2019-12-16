@@ -1,114 +1,260 @@
-<h1>Lista de auditorias</h1>
-
-<div *ngFor="let up of usuarioprincipal">
-    <div *ngIf="up.id !=  0"> 
-        
-
-<table  id="customers">
-  <thead>
-    <tr>
-      <th scope="col">ID</th>
-      <th scope="col">Nombre del cuestionario</th>
-      <th scope="col">Creador de auditoria</th>
-      <th scope="col">Auditor</th>
-      <th scope="col">Empresa</th>
-      <th scope="col">Departamento</th>
-
-      <th *ngIf="up.tipo ==  'Administrador' " scope="col">Eliminar</th>
-      <th *ngIf="up.tipo ==  'Administrador' " scope="col">Editar</th>
-      <th  *ngIf="up.tipo ==  'Administrador' " scope="col">Agregar pregunta</th>
-      <th  *ngIf="up.tipo ==  'Administrador'  || up.tipo ==  'Auditor' " scope="col">Responder cuestionario</th>
-      <th scope="col">Ver resultados</th>
-      
-    </tr>
-  </thead>
-  <tbody>
-      
-      <tr *ngFor="let quiss of cuestionario">
-             <td>
-                {{quiss.id}}
-            </td>
-
-      <td> 
-     {{quiss.nombrecuestionario | uppercase}}
-      </td>
-
-    <td>
-      {{quiss.creador | uppercase}}
-  </td>
-
-     <td>
-      {{quiss.usernameauditor | uppercase}}
-  </td>
-
-  <td>
-  {{quiss.empresa | uppercase}}
-</td>
-
-<td>
-{{quiss.departamento | uppercase}}
-</td>
-  
-      <td *ngIf="up.tipo ==  'Administrador' ">
-              
-              <button (click)='this.eliminarquis(quiss.id)' type="button" class="btn btn-outline-danger btn-sm">
-                  Eliminar
-              </button>
-              
-        </td>
-
-        <td  *ngIf="up.tipo ==  'Administrador' ">
-                
-                <button (click)='this.editarquis(quiss.id)' type="button" class="btn btn-outline-success btn-sm">
-                    Editar
+       <div class="blank-space"></div>
+        <div class="card shadow ">
+          <div class="card-header">
+            <ul class="nav nav-tabs card-header-tabs">
+              <li class="nav-item">
+                <a class="nav-link title noselect active" >Lista de auditorias</a>
+              </li>                   
+            </ul>
+          </div>
+          <div  class="card-body">
+            <div class="blank-space-sm"></div>
+            <div class="row">
+              <div class="col-8 col-lg-8">
+                  <input class="form-control" type="search" placeholder="Buscar" aria-label="Escribe para buscar">
+              </div>
+              <div class="col-4 col-lg-2">
+                <button class="btn-black-alt btn-block shadow"><i class="fa fa-search"></i>buscar</button>
+              </div>
+              <div class="d-block d-lg-none blank-space-sm"></div>
+              <div class="col-12 col-lg-2">
+                <button class="btn-success-alt btn-block shadow" data-toggle="modal" data-target="#addUser">
+                 +
                 </button>
+              </div>
+            </div>
+            <div class="blank-space-sm"></div>
+            <div *ngIf="usuarioprincipal[0].id !=  0">        
+
+              <table  id="customers">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nombre del cuestionario</th>
+                    <th scope="col">Creador de auditoria</th>
+                    <th scope="col">Auditor</th>
+                    <th scope="col">Empresa</th>
+                    <th scope="col">Departamento</th>
               
-          </td>
-
-          <td  *ngIf="up.tipo ==  'Administrador'">
-                  
-                      <div *ngIf="quiss.terminareditarcuestionario ==  '1'">
-                  <button (click)='this.agregarpregunta(quiss.id, quiss.nombrecuestionario)' type="button" class="btn btn-outline-primary btn-sm">
-                      Agregar  
-                  </button>
-                </div>
-                <div *ngIf="quiss.terminareditarcuestionario !=  '1'">
-                    <button (click)='this.agregarpregunta(quiss.id, quiss.nombrecuestionario)'
-                     type="button" class="btn btn-outline-primary btn-sm" disabled>
-                        Agregar
-                    </button>
-                  </div>
-                
-            </td>
-
-            <td *ngIf="up.tipo ==  'Administrador' || up.tipo ==  'Auditor' ">
+                    <th *ngIf="usuarioprincipal[0].tipo ==  'Administrador' " scope="col">Eliminar</th>
+                    <th *ngIf="usuarioprincipal[0].tipo ==  'Administrador' " scope="col">Editar</th>
+                    <th  *ngIf="usuarioprincipal[0].tipo ==  'Administrador' " scope="col">Agregar pregunta</th>
+                    <th  *ngIf="usuarioprincipal[0].tipo ==  'Administrador'  || usuarioprincipal[0].tipo ==  'Auditor' " scope="col">Responder cuestionario</th>
+                    <th scope="col">Ver resultados</th>
                     
-                        <div *ngIf="quiss.terminareditarcuestionario ==  '2' && quiss.terminado ==  '1' ">
-                    <button (click)='this.responderquiss(quiss.id, quiss.nombrecuestionario)' type="button" class="btn btn-outline-warning btn-sm">
-                        Responder
-                    </button>
-                    </div>
-                    <div *ngIf="quiss.terminareditarcuestionario !=  '2' || quiss.terminado !=  '1' ">
-                        <button (click)='this.responderquiss(quiss.id, quiss.nombrecuestionario)'
-                         type="button" class="btn btn-outline-warning btn-sm" disabled>
-                            Responder
-                        </button>
-                        </div>
+                  </tr>
+                </thead>
+                <tbody>
                     
-              </td>
-
-              <td>
-                      <div *ngIf=" quiss.terminado !=  '1' ">
-                          <button (click)='this.veresul(quiss.id, quiss.nombrecuestionario)'
-                           type="button" class="btn btn-outline-info btn-sm" >
-                             Ver
-                          </button>
-                          </div>
+                    <tr *ngFor="let quiss of cuestionario">
+                           <td>
+                              {{quiss.id}}
+                          </td>
+              
+                    <td> 
+                   {{quiss.nombrecuestionario | uppercase}}
+                    </td>
+              
+                  <td>
+                    {{quiss.creador | uppercase}}
                 </td>
-    </tr>
-  </tbody>
-</table>
+              
+                   <td>
+                    {{quiss.usernameauditor | uppercase}}
+                </td>
+              
+                <td>
+                {{quiss.empresa | uppercase}}
+              </td>
+              
+              <td>
+              {{quiss.departamento | uppercase}}
+              </td>
+                
+                    <td *ngIf="usuarioprincipal[0].tipo ==  'Administrador' ">
+                            
+                            <button (click)='this.eliminarquis(quiss.id)' type="button" class="btn btn-outline-danger btn-sm">
+                                Eliminar
+                            </button>
+                            
+                      </td>
+              
+                      <td  *ngIf="usuarioprincipal[0].tipo ==  'Administrador' ">
+                              <!-- (click)='this.editarquis(quiss.id)' -->
+                              <button  data-toggle="modal" data-target="#update" (click)='this.pasarInfo(quiss,quiss.id)'   type="button" class="btn btn-outline-info btn-sm">
+                                  Editar
+                              </button> 
+                            
+                        </td>
+              
+                        <td  *ngIf="usuarioprincipal[0].tipo ==  'Administrador'">
+                                
+                                    <div *ngIf="quiss.terminareditarcuestionario ==  '1'">
+                                <button (click)='this.agregarpregunta(quiss.id, quiss.nombrecuestionario)' 
+                                type="button" class="btn btn-outline-success btn-sm">
+                                    Agregar  
+                                </button>
+                              </div>
+                              <div *ngIf="quiss.terminareditarcuestionario !=  '1'">
+                                  <button (click)='this.agregarpregunta(quiss.id, quiss.nombrecuestionario)'
+                                   type="button" class="btn btn-outline-success btn-sm" disabled>
+                                      Agregar
+                                  </button>
+                                </div>
+                              
+                          </td>
+              
+                          <td *ngIf="usuarioprincipal[0].tipo ==  'Administrador' || usuarioprincipal[0].tipo ==  'Auditor' ">
+                                  
+                                      <div *ngIf="quiss.terminareditarcuestionario ==  '2' && quiss.terminado ==  '1' ">
+                                  <button (click)='this.responderquiss(quiss.id, quiss.nombrecuestionario)' type="button" class="btn btn-outline-warning btn-sm">
+                                      Responder
+                                  </button>
+                                  </div>
+                                  <div *ngIf="quiss.terminareditarcuestionario !=  '2' || quiss.terminado !=  '1' ">
+                                      <button (click)='this.responderquiss(quiss.id, quiss.nombrecuestionario)'
+                                       type="button" class="btn btn-outline-warning btn-sm" disabled>
+                                          Responder
+                                      </button>
+                                      </div>
+                                  
+                            </td>
+              
+                            <td>
+                                    <div *ngIf=" quiss.terminado !=  '1' ">
+                                        <button (click)='this.veresul(quiss.id, quiss.nombrecuestionario)'
+                                         type="button" class="btn btn-outline-info btn-sm" >
+                                           Ver
+                                        </button>
+                                        </div>
+                                        <div *ngIf=" quiss.terminado ==  '1' ">
+                                         N/A
+                                          </div>
+                              </td>
+                  </tr>
+                </tbody>
+              </table>
+              
+              
+                    </div>
+                    </div>
+                    <div>
+          </div>   
+        </div>
+        <div class="blank-space"></div>
+      
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addUserLabel">Encabezado de auditoria</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               
+              </button>
+            </div>
+            <div class="modal-body">
+              
+              <form form class="border border-light p-5" [formGroup]="myForm"  novalidate>
+                <div class="form-group " >
+                   <label >Nombre de la auditoria</label><br>
+                   <input type="text" id="nombrecuestionario" name="nombrecuestionario" class="form-control" 
+                   [(ngModel)]="cuestionario2.nombrecuestionario" placeholder="Nombre"
+                   formControlName="nombrecuestionario">
+                </div>
+                <div class="form-group ">
+                  <label >Nombre de la empresa</label><br>
+                  <select class="form-control" id="empresa" name="empresa"
+                   [(ngModel)]="cuestionario2.empresa" formControlName="empresa" >
+                    <option *ngFor="let emp of empresa" [value]="emp.nombre">
+                      {{emp.nombre}}
+                    </option>
+                  </select>
+                </div> 
+                <div class="form-group " >
+                  <label >Nombre del departamento</label> <br> 
+                  <input type="text" id="departamento" name="departamento" class="form-control" 
+                  [(ngModel)]="cuestionario2.departamento" placeholder="Departamento"
+                  formControlName="departamento">
+                </div>
+                 <div class="form-group ">
+                   <input type="text" id="idcreador" name="idcreador" class="form-control" 
+                   [(ngModel)]="idcreador" formControlName="idcreador" type="hidden">
+                 </div> 
+                    <div class="form-group ">
+                        <label >Auditor</label> <br>
+                        <select class="form-control" id="usernameauditor" name="usernameauditor"
+                         [(ngModel)]="cuestionario2.usernameauditor" formControlName="usernameauditor" >
+                          <option *ngFor="let usuario of usuarios" [value]="usuario.username">
+                            {{usuario.nombre}} {{usuario.apellidop}} {{usuario.apellidom}} ( {{usuario.tipo}} )
+                          </option>
+                        </select>
+                      </div>           
+                      
+           </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn-danger-alt" data-dismiss="modal">Cancelar</button>
+              <button   [disabled]="myForm.invalid"  (click)="this.agregarcuestionario()"
+              type="button" class="btn-success-alt-sm">Agregar</button>
+              </div>
+            </div> 
+        </div>
+</div>
 
-
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="updateLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateLabel">Encabezado de auditoria</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+         
+        </button>
       </div>
+      <div class="modal-body">
+        
+        <form form class="border border-light p-5" [formGroup]="myForm2"  novalidate>
+          <div class="form-group " >
+             <label >Nombre de la auditoria</label><br>
+             <input type="text" id="nombrecuestionario" name="nombrecuestionario" class="form-control" 
+             [(ngModel)]="cuestionario3.nombrecuestionario" placeholder="Nombre"
+             formControlName="nombrecuestionario">
+          </div>
+          <div class="form-group ">
+            <label >Nombre de la empresa</label><br>
+            <select class="form-control" id="empresa" name="empresa"
+             [(ngModel)]="cuestionario3.empresa" formControlName="empresa" >
+              <option *ngFor="let emp of empresa" [value]="emp.nombre">
+                {{emp.nombre}}
+              </option>
+            </select>
+          </div> 
+          <div class="form-group " >
+            <label >Nombre del departamento</label> <br> 
+            <input type="text" id="departamento" name="departamento" class="form-control" 
+            [(ngModel)]="cuestionario3.departamento" placeholder="Departamento"
+            formControlName="departamento">
+          </div>
+           <div class="form-group ">
+             <input type="text" id="idcreador" name="idcreador" class="form-control" 
+             [(ngModel)]="idcreador" formControlName="idcreador" type="hidden">
+           </div> 
+              <div class="form-group ">
+                  <label >Auditor</label> <br>
+                  <select class="form-control" id="usernameauditor" name="usernameauditor"
+                   [(ngModel)]="cuestionario3.usernameauditor" formControlName="usernameauditor" >
+                    <option *ngFor="let usuario of usuarios" [value]="usuario.username">
+                      {{usuario.nombre}} {{usuario.apellidop}} {{usuario.apellidom}} ( {{usuario.tipo}} )
+                    </option>
+                  </select>
+                </div>           
+                
+     </form>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-danger-alt" data-dismiss="modal">Cancelar</button>
+        <button   [disabled]="myForm2.invalid"  (click)="this.editarcuestionario()"
+        type="button" class="btn-success-alt-sm">Agregar</button>
+        </div>
+      </div> 
+  </div>
+</div>
