@@ -17,7 +17,6 @@ import { EmpresaeditComponent } from './cuestionarios/empresaedit/empresaedit.co
 import { EmpresaformularioComponent } from './cuestionarios/empresaformulario/empresaformulario.component';
 import { EmpresalistaComponent } from './cuestionarios/empresalista/empresalista.component';
 import { VeresultadoComponent } from './cuestionarios/veresultado/veresultado.component';
-
 import { CreartipocuesComponent } from './cuestionarios/creartipocues/creartipocues.component';
 import { EdittipocuesComponent } from './cuestionarios/edittipocues/edittipocues.component';
 import { ListatipocuesComponent } from './cuestionarios/listatipocues/listatipocues.component';
@@ -28,10 +27,13 @@ import { LoginGuard } from './login.guard';
 import { RolGuard } from './rol.guard';
 import { RolGuard2 } from './rol.guard2';
 import { RolGuard3 } from './rol.guard3';
+import { MenuComponent } from './menu/menu.component';
 
 const routes: Routes = [
+    {path: 'menu',component: MenuComponent, canActivate:[LoginGuard]},
+    
     //-----------------RUTAS USUARIO--------------------
-    {path: '',component: LoginComponent},
+    {path: '',component: LoginComponent, canActivate: [RolGuard2]},
     {path: 'formulariousuario',component: FormularioComponent, canActivate:[LoginGuard, RolGuard]},
     {path: 'listausuario',component: ListaComponent, canActivate:[LoginGuard, RolGuard]},
     {path: 'listausuariosolocliente',component: ListasoloclientesComponent, canActivate:[LoginGuard, RolGuard]},

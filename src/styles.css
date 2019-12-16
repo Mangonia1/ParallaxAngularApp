@@ -191,6 +191,40 @@ a{
   border-radius: 0;
 }
 
+.btn-info-alt{
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  background: #8cc8c5;
+  border: 2px solid #8cc8c5;
+  border-radius: 0;
+  color: #fff;
+}
+
+.btn-info-alt:hover{
+  color: #8cc8c5;
+  background: #fff;
+  border: 2px solid #8cc8c5;
+  border-radius: 0;
+}
+
+.btn-warning-alt{
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  font-weight: 700;
+  background: #f1f211;
+  border: 2px solid #f1f211;
+  border-radius: 0;
+  color: #fff;
+}
+
+.btn-warning-alt:hover{
+  color: #f1f211;
+  background: #fff;
+  border: 2px solid #f1f211;
+  border-radius: 0;
+}
+
 .form-control{ font-family: 'Playfair', sans-serif !important; font-size: 10px; }
 
 .card{

@@ -25,9 +25,7 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('miid');
     localStorage.removeItem('tipo');
     localStorage.removeItem('username');
-    //  localStorage.removeItem('channel');
-    alert('Sesion cerrada');
-    this.navegar.navigate(['']);
+    
     window.location.reload();
   }
 

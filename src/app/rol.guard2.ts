@@ -10,10 +10,9 @@ export class RolGuard2 implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
 
     if(!localStorage.getItem('token')){
-      
       return true;
-  }
-  this.router.navigate(['listacuestionario'])
+    }
+  this.router.navigate(['/menu'])
   return false;
 }
 
