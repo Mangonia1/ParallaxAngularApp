@@ -129,7 +129,7 @@ this.pregunta = this.cuestionariosservice.nuevopregunta2();
         });
 
 
-       
+       this.terminarquis();
         
        }
 
