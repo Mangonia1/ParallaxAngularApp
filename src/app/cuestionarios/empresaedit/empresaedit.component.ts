@@ -14,7 +14,8 @@ export class EmpresaeditComponent implements OnInit {
 
   empresa:Empresa;
   myForm:FormGroup;
-  id:number ; 
+  id:number ;
+  mostrar:boolean=true;
 
   constructor(
     private route:ActivatedRoute,

@@ -19,7 +19,9 @@ export class FormularioeditarComponent implements OnInit {
   usuario:Usuario;
   myForm:FormGroup;
   usuario2;
-  id:number ; 
+  id:number;
+
+  mostrar: boolean = true;
 
   constructor(
     private route:ActivatedRoute,
